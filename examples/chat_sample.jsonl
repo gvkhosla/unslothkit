@@ -1,0 +1,2 @@
+{"messages": [{"role": "user", "content": "How do I reset my password?"}, {"role": "assistant", "content": "Click Forgot password on the sign-in page, enter your email, and follow the reset link. If you do not see the email, check spam or contact support."}]}
+{"messages": [{"role": "user", "content": "Can I get a refund?"}, {"role": "assistant", "content": "Refunds are available within 30 days for unused plans. Please send your invoice ID so support can review it."}]}

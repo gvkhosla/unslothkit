@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "unslothkit"
+version = "0.1.0"
+description = "Beginner-friendly CLI for Unsloth fine-tuning projects"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [{name = "UnslothKit contributors"}]
+dependencies = []
+
+[project.optional-dependencies]
+train = [
+  "unsloth",
+  "datasets",
+  "transformers",
+  "trl",
+  "accelerate",
+]
+dev = ["pytest"]
+
+[project.scripts]
+unslothkit = "unslothkit.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["unslothkit*"]

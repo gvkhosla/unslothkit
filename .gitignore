@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+unsloth_env/
+outputs/
+adapters/
+merged_16bit/
+gguf/
+eval_outputs_*.jsonl
+.DS_Store
