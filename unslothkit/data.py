@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import json
+import random
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, Iterable, Iterator, List, Optional, Sequence, Tuple
@@ -183,6 +184,28 @@ def convert_csv_to_jsonl(input_path: Path, output_path: Path) -> int:
             f_out.write(json.dumps(obj, ensure_ascii=False) + "\n")
             count += 1
     return count
+
+
+def split_jsonl(input_path: Path, train_path: Path, eval_path: Path, eval_ratio: float = 0.1, seed: int = 3407, max_eval: Optional[int] = None) -> Tuple[int, int]:
+    """Split a JSONL file into train/eval files while preserving complete rows."""
+    if not 0 < eval_ratio < 1:
+        raise ValueError("eval_ratio must be between 0 and 1")
+    lines = [line for line in input_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    if len(lines) < 2:
+        raise ValueError("need at least 2 non-empty JSONL rows to split")
+    rng = random.Random(seed)
+    rng.shuffle(lines)
+    eval_count = max(1, round(len(lines) * eval_ratio))
+    if max_eval is not None:
+        eval_count = min(eval_count, max_eval)
+    eval_count = min(eval_count, len(lines) - 1)
+    eval_lines = lines[:eval_count]
+    train_lines = lines[eval_count:]
+    train_path.parent.mkdir(parents=True, exist_ok=True)
+    eval_path.parent.mkdir(parents=True, exist_ok=True)
+    train_path.write_text("\n".join(train_lines) + "\n", encoding="utf-8")
+    eval_path.write_text("\n".join(eval_lines) + "\n", encoding="utf-8")
+    return len(train_lines), len(eval_lines)
 
 
 def write_sample(path: Path, task: str = "chat-assistant") -> None:

@@ -17,6 +17,9 @@ The CLI itself uses only Python stdlib. The generated training project installs 
 ```bash
 git clone https://github.com/gvkhosla/unslothkit.git
 cd unslothkit
+python3 -m unslothkit quickstart
+
+# Or non-interactive:
 python3 -m unslothkit doctor
 python3 -m unslothkit recommend --task support-bot
 python3 -m unslothkit new my-support-bot --task support-bot --model tiny-smoke-test
@@ -93,6 +96,10 @@ Agents should follow the same loop:
 ## Commands
 
 ```bash
+# Interactive wizard
+python3 -m unslothkit quickstart
+python3 -m unslothkit quickstart --path my-bot --task support-bot --data support.csv
+
 # Environment + model selection
 python3 -m unslothkit doctor
 python3 -m unslothkit recommend --task support-bot --vram-gb 8 --no-detect
@@ -104,6 +111,7 @@ python3 -m unslothkit new my-bot --task domain-qa --model beginner-3b
 # Data helpers
 python3 -m unslothkit data check my-bot/data/train.jsonl
 python3 -m unslothkit data convert input.csv my-bot/data/train.jsonl
+python3 -m unslothkit data split all.jsonl my-bot/data/train.jsonl my-bot/data/eval.jsonl
 
 # Generated-project workflow
 cd my-bot
@@ -118,6 +126,7 @@ python chat.py --base
 
 ```text
 my-bot/
+  START_HERE.md        # copy/paste guide for beginners
   config.json          # beginner-safe model + LoRA defaults
   train.py             # Unsloth SFT script
   chat.py              # interactive adapter/base chat
@@ -167,6 +176,7 @@ Then run generated `train.py` from your project directory.
 
 ## Beginner rules baked in
 
+- Use `quickstart` if you do not know where to begin.
 - Run `doctor` before training.
 - Run `data check` before training.
 - Start with a 1B/3B smoke test before a 7B/8B run.

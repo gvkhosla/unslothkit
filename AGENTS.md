@@ -5,7 +5,11 @@ Use this repo to make Unsloth fine-tuning beginner-simple and reproducible.
 ## Default workflow
 
 1. Clarify the user's task, data, hardware, and deployment target.
-2. Run:
+2. For a beginner at the keyboard, prefer:
+   ```bash
+   python3 -m unslothkit quickstart
+   ```
+   For non-interactive work, run:
    ```bash
    python3 -m unslothkit doctor
    python3 -m unslothkit recommend --task <task>
@@ -30,6 +34,7 @@ Use this repo to make Unsloth fine-tuning beginner-simple and reproducible.
 
 - Start small: `tiny-smoke-test` or `beginner-3b` before 7B/8B.
 - Never train until data previews look correct.
+- If the user provides one JSONL file, use `python3 -m unslothkit data split ...` to create held-out eval data.
 - Keep eval data held out.
 - Inspect real generations; loss alone is not enough.
 - Do not launch paid cloud GPUs, push to HF, or overwrite user data without explicit approval.

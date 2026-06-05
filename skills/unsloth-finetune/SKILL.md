@@ -29,6 +29,10 @@ cd unslothkit
    python3 -m unslothkit doctor
    python3 -m unslothkit recommend --task <task>
    ```
+   For a human-in-the-loop beginner flow, you can use:
+   ```bash
+   python3 -m unslothkit quickstart
+   ```
    - If local machine is not suitable, suggest Colab/RunPod/Lambda/Unsloth Studio.
    - Do not spend time debugging training until basic install/GPU/token issues are understood.
 
@@ -125,6 +129,7 @@ python3 -m unslothkit recommend --task support-bot --vram-gb 8 --no-detect
 python3 -m unslothkit new ~/my-bot --task support-bot --model beginner-3b
 python3 -m unslothkit data check ~/my-bot/data/train.jsonl
 python3 -m unslothkit data convert input.csv output.jsonl
+python3 -m unslothkit data split all.jsonl my-bot/data/train.jsonl my-bot/data/eval.jsonl
 
 # From generated project
 python train.py

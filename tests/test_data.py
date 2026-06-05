@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from unslothkit.data import check_data, convert_csv_to_jsonl
+from unslothkit.data import check_data, convert_csv_to_jsonl, split_jsonl
 from unslothkit.recommend import recommend_models
 from unslothkit.templates import create_project
 
@@ -34,6 +34,18 @@ class DataTests(unittest.TestCase):
             self.assertEqual(n, 1)
             self.assertTrue(check_data(out).ok)
 
+    def test_split_jsonl(self):
+        with tempfile.TemporaryDirectory() as td:
+            src = Path(td) / "all.jsonl"
+            rows = [json.dumps({"messages": [{"role": "user", "content": f"q{i}"}, {"role": "assistant", "content": f"a{i}"}]}) for i in range(10)]
+            src.write_text("\n".join(rows) + "\n")
+            train = Path(td) / "train.jsonl"
+            ev = Path(td) / "eval.jsonl"
+            train_n, eval_n = split_jsonl(src, train, ev, eval_ratio=0.2, seed=1)
+            self.assertEqual((train_n, eval_n), (8, 2))
+            self.assertTrue(check_data(train).ok)
+            self.assertTrue(check_data(ev).ok)
+
 
 class ProjectTests(unittest.TestCase):
     def test_create_project(self):
@@ -41,6 +53,7 @@ class ProjectTests(unittest.TestCase):
             path = Path(td) / "bot"
             create_project(path, task="support-bot", model_label="tiny-smoke-test")
             self.assertTrue((path / "config.json").exists())
+            self.assertTrue((path / "START_HERE.md").exists())
             self.assertTrue((path / "train.py").exists())
             self.assertTrue(check_data(path / "data" / "train.jsonl").ok)
             compile((path / "train.py").read_text(), str(path / "train.py"), "exec")

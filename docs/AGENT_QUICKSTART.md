@@ -24,6 +24,14 @@ python3 -m unslothkit recommend --task <task>
 
 ## Happy path
 
+For a human-in-the-loop setup, use the wizard:
+
+```bash
+python3 -m unslothkit quickstart
+```
+
+For non-interactive agents:
+
 ```bash
 python3 -m unslothkit new <project-dir> --task <task> --model tiny-smoke-test
 python3 -m unslothkit data check <project-dir>/data/train.jsonl
@@ -37,6 +45,7 @@ python chat.py
 ## Rules
 
 - Start with `tiny-smoke-test` unless the user already has a known-good GPU setup.
+- If the user gives one dataset file, use `data split` to create held-out eval data.
 - Do not train until `data check` has no errors and previews look right.
 - Keep eval data separate.
 - Baseline eval before training.

@@ -2,12 +2,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
 from typing import Optional
 
-from .data import check_data, convert_csv_to_jsonl
+from .data import check_data, convert_csv_to_jsonl, split_jsonl
 from .doctor import detect_nvidia_vram_gb, format_checks, run_doctor
 from .recommend import recommend_models, task_hint
 from .templates import create_project
@@ -67,7 +68,7 @@ def cmd_recommend(args: argparse.Namespace) -> int:
         print("VRAM: unknown (showing general beginner order)")
     print("")
     for idx, rec in enumerate(recommend_models(args.task, vram), start=1):
-        fit = "fits" if (vram is None or rec.min_vram_gb <= vram) else "stretch"
+        fit = "unknown" if vram is None else ("fits" if rec.min_vram_gb <= vram else "stretch")
         print(f"{idx}. {rec.label} [{fit}]")
         print(f"   model: {rec.model}")
         print(f"   min_vram: ~{rec.min_vram_gb}GB | template: {rec.chat_template} | rank: {rec.lora_rank}")
@@ -96,6 +97,72 @@ def cmd_data_convert(args: argparse.Namespace) -> int:
     print(f"✅ Converted {n} rows -> {args.output}")
     report = check_data(Path(args.output))
     print_data_report(report)
+    return 0 if report.ok else 1
+
+
+def cmd_data_split(args: argparse.Namespace) -> int:
+    train_n, eval_n = split_jsonl(
+        Path(args.input),
+        Path(args.train_output),
+        Path(args.eval_output),
+        eval_ratio=args.eval_ratio,
+        seed=args.seed,
+        max_eval=args.max_eval,
+    )
+    print(f"✅ Split {args.input} -> {train_n} train / {eval_n} eval")
+    train_report = check_data(Path(args.train_output), max_previews=1)
+    eval_report = check_data(Path(args.eval_output), max_previews=1)
+    print("\nTrain:")
+    print_data_report(train_report)
+    print("\nEval:")
+    print_data_report(eval_report)
+    return 0 if train_report.ok and eval_report.ok else 1
+
+
+def _ask(prompt: str, default: str = "") -> str:
+    suffix = f" [{default}]" if default else ""
+    value = input(f"{prompt}{suffix}: ").strip()
+    return value or default
+
+
+def cmd_quickstart(args: argparse.Namespace) -> int:
+    print("🦥 UnslothKit quickstart\n")
+    project = _ask("Project directory", args.path or "my-unsloth-bot")
+    task = _ask("Task (support-bot/domain-qa/writing-style/extractor/classifier/code-helper)", args.task or "support-bot")
+    vram = _ask("VRAM GB (optional; leave blank to auto-detect)", "")
+    print("\nRecommended models:\n")
+    rec_args = argparse.Namespace(task=task, vram_gb=float(vram) if vram else None, no_detect=bool(vram))
+    cmd_recommend(rec_args)
+    model = _ask("Model preset", args.model or "tiny-smoke-test")
+    data_path = _ask("Existing data file (optional CSV or JSONL)", args.data or "")
+
+    project_path = Path(project).expanduser()
+    create_project(project_path, task=task, model_label=model, force=args.force)
+    print(f"\n✅ Created project at {project_path}")
+
+    if data_path:
+        src = Path(data_path).expanduser()
+        if not src.exists():
+            print(f"❌ Data file not found: {src}", file=sys.stderr)
+            return 1
+        train_path = project_path / "data" / "train.jsonl"
+        if src.suffix.lower() == ".csv":
+            n = convert_csv_to_jsonl(src, train_path)
+            print(f"✅ Converted {n} CSV rows into {train_path}")
+        else:
+            shutil.copyfile(src, train_path)
+            print(f"✅ Copied {src} into {train_path}")
+
+    print("\nChecking training data:\n")
+    report = check_data(project_path / "data" / "train.jsonl")
+    print_data_report(report)
+
+    print("\nNext copy/paste commands:")
+    print(f"  cd {project_path}")
+    print("  python eval.py --base   # in GPU/Unsloth env")
+    print("  python train.py")
+    print("  python eval.py")
+    print("  python chat.py")
     return 0 if report.ok else 1
 
 
@@ -151,6 +218,14 @@ def build_parser() -> argparse.ArgumentParser:
     rec.add_argument("--no-detect", action="store_true")
     rec.set_defaults(func=cmd_recommend)
 
+    quick = sub.add_parser("quickstart", help="interactive beginner wizard: recommend model, create project, import/check data")
+    quick.add_argument("--path", default=None)
+    quick.add_argument("--task", default=None)
+    quick.add_argument("--model", default=None)
+    quick.add_argument("--data", default=None, help="optional CSV or JSONL file to import as train data")
+    quick.add_argument("--force", action="store_true")
+    quick.set_defaults(func=cmd_quickstart)
+
     data = sub.add_parser("data", help="dataset helpers")
     data_sub = data.add_subparsers(dest="data_command", required=True)
     check = data_sub.add_parser("check", help="lint and preview a JSONL training file")
@@ -163,6 +238,14 @@ def build_parser() -> argparse.ArgumentParser:
     convert.add_argument("input")
     convert.add_argument("output")
     convert.set_defaults(func=cmd_data_convert)
+    split = data_sub.add_parser("split", help="split one JSONL file into train/eval JSONL files")
+    split.add_argument("input")
+    split.add_argument("train_output")
+    split.add_argument("eval_output")
+    split.add_argument("--eval-ratio", type=float, default=0.1)
+    split.add_argument("--seed", type=int, default=3407)
+    split.add_argument("--max-eval", type=int, default=None)
+    split.set_defaults(func=cmd_data_split)
 
     train = sub.add_parser("train", help="run train.py in a generated project")
     train.add_argument("project", nargs="?", default=".")

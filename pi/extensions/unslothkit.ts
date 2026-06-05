@@ -52,6 +52,7 @@ export default function unslothKitExtension(pi: ExtensionAPI) {
       const action = await ctx.ui.select("UnslothKit", [
         "Doctor: check environment",
         "Recommend: pick model for task/hardware",
+        "Quickstart: interactive terminal wizard",
         "New project: guided fine-tuning scaffold",
         "Data check: lint JSONL training data",
         "Show quick start",
@@ -71,6 +72,11 @@ export default function unslothKitExtension(pi: ExtensionAPI) {
         if (vram?.trim()) args.push("--vram-gb", vram.trim(), "--no-detect");
         const result = await runUnslothKit(args);
         ctx.ui.notify(asText(result), result.exitCode === 0 ? "info" : "warning");
+        return;
+      }
+
+      if (action.startsWith("Quickstart")) {
+        ctx.ui.notify("Run this in your terminal:\npython3 -m unslothkit quickstart\n\nThis asks a few questions, creates a project, imports optional CSV/JSONL data, and checks it.", "info");
         return;
       }
 
