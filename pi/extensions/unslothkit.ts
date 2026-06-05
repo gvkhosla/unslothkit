@@ -3,9 +3,12 @@ import { Type } from "typebox";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const execFileAsync = promisify(execFile);
-const REPO = "/Users/geetkhosla/unslothkit";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const REPO = process.env.UNSLOTHKIT_REPO || path.resolve(__dirname, "../..");
 
 type RunResult = { stdout: string; stderr: string; exitCode: number };
 
@@ -65,7 +68,7 @@ export default function unslothKitExtension(pi: ExtensionAPI) {
         const task = (await ctx.ui.input("Task", "support-bot, domain-qa, writing-style, extractor, classifier")) || "support-bot";
         const vram = await ctx.ui.input("VRAM GB (optional)", "Leave blank to auto-detect");
         const args = ["recommend", "--task", task];
-        if (vram.trim()) args.push("--vram-gb", vram.trim(), "--no-detect");
+        if (vram?.trim()) args.push("--vram-gb", vram.trim(), "--no-detect");
         const result = await runUnslothKit(args);
         ctx.ui.notify(asText(result), result.exitCode === 0 ? "info" : "warning");
         return;

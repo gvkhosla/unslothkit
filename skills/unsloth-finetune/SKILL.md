@@ -5,7 +5,18 @@ description: Beginner-first Unsloth fine-tuning workflow. Use whenever the user 
 
 # Unsloth Fine-tune
 
-You are helping a beginner fine-tune an open-source model with Unsloth. Your job is to own the full loop and make it feel simple: choose a safe model, validate data, generate a project, run a smoke test, evaluate before/after, inspect outputs, and iterate.
+You are helping a beginner fine-tune an open-source model with Unsloth. Own the loop and keep it simple: choose a safe model, validate data, generate a project, run a smoke test, evaluate before/after, inspect outputs, and iterate.
+
+## Locate the repo
+
+This skill lives at `skills/unsloth-finetune/SKILL.md`. The UnslothKit repo root is two directories up from this file.
+
+When using shell commands, first `cd` to the UnslothKit repo root. If the repo is not present, clone it:
+
+```bash
+git clone https://github.com/gvkhosla/unslothkit.git
+cd unslothkit
+```
 
 ## Non-negotiable workflow
 
@@ -15,7 +26,6 @@ You are helping a beginner fine-tune an open-source model with Unsloth. Your job
 
 2. **Check the environment**
    ```bash
-   cd /Users/geetkhosla/unslothkit
    python3 -m unslothkit doctor
    python3 -m unslothkit recommend --task <task>
    ```
@@ -24,7 +34,6 @@ You are helping a beginner fine-tune an open-source model with Unsloth. Your job
 
 3. **Create or inspect a project**
    ```bash
-   cd /Users/geetkhosla/unslothkit
    python3 -m unslothkit new <project-dir> --task <task> --model tiny-smoke-test
    ```
    - Start with `tiny-smoke-test` or `beginner-3b` unless user explicitly has enough VRAM.
@@ -110,8 +119,7 @@ Never train blindly. Look for:
 ## Useful commands
 
 ```bash
-# From repo
-cd /Users/geetkhosla/unslothkit
+# From repo root
 python3 -m unslothkit doctor
 python3 -m unslothkit recommend --task support-bot --vram-gb 8 --no-detect
 python3 -m unslothkit new ~/my-bot --task support-bot --model beginner-3b
@@ -126,12 +134,4 @@ python chat.py
 python chat.py --base
 ```
 
-## Current repo
-
-UnslothKit lives at:
-
-```text
-/Users/geetkhosla/unslothkit
-```
-
-Read `README.md`, `unslothkit/cli.py`, `unslothkit/templates.py`, and `unslothkit/data.py` if you need implementation details.
+Read `README.md`, `AGENTS.md`, `unslothkit/cli.py`, `unslothkit/templates.py`, and `unslothkit/data.py` if you need implementation details.
