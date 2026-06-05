@@ -8,9 +8,6 @@ PI_EXT_SRC="$ROOT/pi/extensions/finetunekit.ts"
 install_skill() {
   local dir="$1"
   mkdir -p "$dir"
-  # Remove old pre-rename symlink, then refresh the new one.
-  if [[ -L "$dir/unsloth-finetune" ]]; then rm -f "$dir/unsloth-finetune"; fi
-  if [[ -L "$dir/finetune-open-models" ]]; then rm -f "$dir/finetune-open-models"; fi
   ln -sfn "$SKILL_SRC" "$dir/finetune-open-models"
   echo "linked skill -> $dir/finetune-open-models"
 }
@@ -18,8 +15,6 @@ install_skill() {
 install_pi_extension() {
   local dir="$HOME/.pi/agent/extensions"
   mkdir -p "$dir"
-  if [[ -L "$dir/unslothkit.ts" ]]; then rm -f "$dir/unslothkit.ts"; fi
-  if [[ -L "$dir/finetunekit.ts" ]]; then rm -f "$dir/finetunekit.ts"; fi
   ln -sfn "$PI_EXT_SRC" "$dir/finetunekit.ts"
   echo "linked Pi extension -> $dir/finetunekit.ts"
 }
@@ -38,6 +33,8 @@ Targets:
   claude   Install skill under ~/.claude/skills
   codex    Install skill under ~/.codex/skills
   agents   Install skill under ~/.agents/skills
+
+For Amp, OpenCode, and other harnesses, AGENTS.md and docs/AGENT_QUICKSTART.md are the primary integration points.
 EOF
 }
 
@@ -80,5 +77,5 @@ Done.
 Next:
   - Restart your agent, or run /reload in Pi.
   - In Pi, use /finetune.
-  - In any agent, ask: "use the finetune-open-models skill to fine-tune a model".
+  - In any agent, ask: "use the finetune-open-models workflow to fine-tune a model".
 EOF

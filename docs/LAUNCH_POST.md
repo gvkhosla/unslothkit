@@ -1,10 +1,10 @@
 # Launch post
 
-I’ve been wanting to make it easier for myself to fine-tune open-source models and bring them into my own workflows and agents.
+I’ve been wanting to make it easier to use my coding agents to fine-tune open-source models and bring them into my own workflows.
 
-So I made **FineTuneKit** — a small beginner-friendly starter kit built on top of Unsloth.
+So I made **FineTuneKit** — a small beginner-friendly, agent-native starter kit built on top of Unsloth.
 
-The idea is simple: go from a use case / CSV / examples to a working fine-tuning project without getting stuck on model choice, data formatting, eval setup, or boilerplate scripts.
+The idea is simple: tell your coding agent the use case / CSV / examples, and get to a working fine-tuning project without getting stuck on model choice, data formatting, eval setup, or boilerplate scripts.
 
 It helps with:
 
@@ -12,7 +12,7 @@ It helps with:
 - checking and converting data
 - splitting train/eval sets
 - generating `train.py`, `eval.py`, and `chat.py`
-- giving agents like Pi / Claude Code / Codex a clear workflow to help
+- giving agents like Pi / Claude Code / Codex / Amp / OpenCode a clear workflow to help
 
 Quickstart:
 

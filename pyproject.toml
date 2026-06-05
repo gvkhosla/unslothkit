@@ -35,8 +35,7 @@ dev = ["pytest"]
 
 [project.scripts]
 finetunekit = "finetunekit.cli:main"
-unslothkit = "finetunekit.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["finetunekit*", "unslothkit*"]
+include = ["finetunekit*"]

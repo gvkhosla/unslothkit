@@ -8,13 +8,13 @@ Beginner-friendly, agent-native scaffolding for fine-tuning open-source models w
 
 I wanted to make it personally easier to fine-tune open-source models and bring them into my own workflows and agents. Unsloth is powerful, but I kept wanting a simpler on-ramp for the repetitive beginner steps: choosing a model, checking data, creating train/eval splits, generating scripts, and giving coding agents a workflow they can reliably follow.
 
-FineTuneKit helps people and their coding agents go from “I have a use case / CSV / chat examples” to a reproducible Unsloth project with:
+FineTuneKit helps anyone with a coding agent go from “I have a use case / CSV / chat examples” to a reproducible Unsloth project with:
 
 - model + hardware recommendations
 - data conversion, linting, and previews
 - generated `train.py`, `chat.py`, and `eval.py`
 - beginner-safe LoRA/QLoRA defaults
-- Pi launcher + agent skills for Pi, Claude Code, and Codex
+- agent-native workflows for Pi, Claude Code, Codex, Amp, OpenCode, and other coding harnesses
 
 The CLI itself uses only Python stdlib. The generated training project installs Unsloth in the GPU environment.
 
@@ -91,7 +91,15 @@ Unsloth is already fast and powerful. FineTuneKit tries to reduce the beginner s
 
 See `docs/UNSLOTH_COMMUNITY.md` for positioning and roadmap.
 
-## Agent setup
+## Agent-native setup
+
+FineTuneKit is designed for anyone working through a coding agent — Pi, Claude Code, Codex, Amp, OpenCode, or another harness.
+
+- **Pi**: native `/finetune` launcher + agent-callable tools.
+- **Claude Code / Codex**: shared `finetune-open-models` skill.
+- **Amp / OpenCode / other harnesses**: repo-level `AGENTS.md` and command-first docs.
+
+See `docs/AGENT_NATIVE.md` for details.
 
 Install shared skills for Pi / Claude Code / Codex and the Pi-native extension:
 
@@ -117,13 +125,14 @@ The Pi extension adds:
 - `finetunekit_create_project`
 - `finetunekit_check_data`
 
-### Claude Code / Codex / other agents
+### Claude Code / Codex / Amp / OpenCode / other agents
 
 The repo includes:
 
 ```text
-AGENTS.md
-CLAUDE.md
+AGENTS.md                         # generic coding-agent instructions
+CLAUDE.md                         # Claude Code instructions
+docs/AGENT_QUICKSTART.md          # command-first workflow
 skills/finetune-open-models/SKILL.md
 ```
 
