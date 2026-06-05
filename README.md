@@ -4,6 +4,10 @@ Beginner-friendly, agent-native scaffolding for fine-tuning open-source models w
 
 > Independent community project. UnslothKit is built to complement Unsloth Core, Unsloth Studio, official docs, and official notebooks — not replace them. For official Unsloth docs, see https://unsloth.ai/docs.
 
+## Why I built this
+
+I wanted to make it personally easier to fine-tune open-source models and bring them into my own workflows and agents. Unsloth is powerful, but I kept wanting a simpler on-ramp for the repetitive beginner steps: choosing a model, checking data, creating train/eval splits, generating scripts, and giving coding agents a workflow they can reliably follow.
+
 UnslothKit helps people and their coding agents go from “I have a use case / CSV / chat examples” to a reproducible Unsloth project with:
 
 - model + hardware recommendations
@@ -15,6 +19,8 @@ UnslothKit helps people and their coding agents go from “I have a use case / C
 The CLI itself uses only Python stdlib. The generated training project installs Unsloth in the GPU environment.
 
 ## 60-second start
+
+If you're coming from the launch post, start here:
 
 ```bash
 git clone https://github.com/gvkhosla/unslothkit.git
