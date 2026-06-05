@@ -2,6 +2,8 @@
 
 Beginner-friendly, agent-native scaffolding for fine-tuning open-source models with [Unsloth](https://github.com/unslothai/unsloth).
 
+> Independent community project. UnslothKit is built to complement Unsloth Core, Unsloth Studio, official docs, and official notebooks — not replace them. For official Unsloth docs, see https://unsloth.ai/docs.
+
 UnslothKit helps people and their coding agents go from “I have a use case / CSV / chat examples” to a reproducible Unsloth project with:
 
 - model + hardware recommendations
@@ -44,6 +46,18 @@ cd unslothkit
 pip install -e .
 unslothkit new my-bot
 ```
+
+## Why the Unsloth community might want this
+
+Unsloth is already fast and powerful. UnslothKit tries to reduce the beginner support burden around the parts that happen before and around training:
+
+- “Which model fits my GPU?”
+- “Is my dataset formatted correctly?”
+- “How do I make train/eval splits?”
+- “How do I compare base vs fine-tuned?”
+- “How do I get my coding agent to help without inventing a broken training script?”
+
+See `docs/UNSLOTH_COMMUNITY.md` for positioning and roadmap.
 
 ## Agent setup
 
@@ -184,6 +198,18 @@ Then run generated `train.py` from your project directory.
 - Compare `python eval.py --base` vs `python eval.py`.
 - Inspect real outputs; do not trust loss alone.
 - Do not launch paid cloud GPUs or push models to Hugging Face without explicit approval.
+
+## Contributing
+
+PRs and recipe requests are welcome. See `CONTRIBUTING.md`.
+
+Especially useful contributions:
+
+- task recipes
+- tiny example datasets
+- better evals
+- Colab/RunPod launchers
+- fixes when official Unsloth APIs/templates change
 
 ## Status
 
