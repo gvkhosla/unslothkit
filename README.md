@@ -4,6 +4,22 @@ A beginner-friendly CLI layer for [Unsloth](https://github.com/unslothai/unsloth
 
 UnslothKit is intentionally lightweight: the CLI itself uses only Python stdlib. Generated projects install Unsloth in the training environment.
 
+## Pi-native launcher
+
+This repo includes a Pi extension at `pi/extensions/unslothkit.ts`, globally linked to:
+
+```text
+~/.pi/agent/extensions/unslothkit.ts
+```
+
+Restart Pi or run `/reload`, then use:
+
+```text
+/unsloth
+```
+
+The extension adds a TUI launcher plus agent-callable tools for doctor, recommendations, project creation, and data checks.
+
 ## MVP commands
 
 ```bash
