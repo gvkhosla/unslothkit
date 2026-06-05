@@ -3,13 +3,13 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "unslothkit"
+name = "finetunekit"
 version = "0.1.0"
 description = "Beginner-friendly CLI for Unsloth fine-tuning projects"
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "MIT"}
-authors = [{name = "UnslothKit contributors"}]
+authors = [{name = "FineTuneKit contributors"}]
 dependencies = []
 classifiers = [
   "License :: OSI Approved :: MIT License",
@@ -18,9 +18,9 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/gvkhosla/unslothkit"
-Repository = "https://github.com/gvkhosla/unslothkit"
-Issues = "https://github.com/gvkhosla/unslothkit/issues"
+Homepage = "https://github.com/gvkhosla/finetunekit"
+Repository = "https://github.com/gvkhosla/finetunekit"
+Issues = "https://github.com/gvkhosla/finetunekit/issues"
 Unsloth = "https://github.com/unslothai/unsloth"
 
 [project.optional-dependencies]
@@ -34,8 +34,9 @@ train = [
 dev = ["pytest"]
 
 [project.scripts]
-unslothkit = "unslothkit.cli:main"
+finetunekit = "finetunekit.cli:main"
+unslothkit = "finetunekit.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["unslothkit*"]
+include = ["finetunekit*", "unslothkit*"]

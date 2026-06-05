@@ -5,9 +5,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from unslothkit.data import check_data, convert_csv_to_jsonl, split_jsonl
-from unslothkit.recommend import recommend_models
-from unslothkit.templates import create_project
+from finetunekit.data import check_data, convert_csv_to_jsonl, split_jsonl
+from finetunekit.recommend import recommend_models
+from finetunekit.templates import create_project
 
 
 class DataTests(unittest.TestCase):
@@ -53,7 +53,7 @@ class ProjectTests(unittest.TestCase):
     def test_demo_command(self):
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "demo"
-            result = subprocess.run([sys.executable, "-m", "unslothkit", "demo", str(path)], cwd=Path(__file__).resolve().parents[1], text=True, capture_output=True)
+            result = subprocess.run([sys.executable, "-m", "finetunekit", "demo", str(path)], cwd=Path(__file__).resolve().parents[1], text=True, capture_output=True)
             self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
             self.assertTrue((path / "START_HERE.md").exists())
             self.assertTrue(check_data(path / "data" / "train.jsonl").ok)

@@ -96,7 +96,7 @@ def get_recommendation(label_or_model: str) -> ModelRecommendation:
         chat_template="auto",
         min_vram_gb=0,
         best_for="custom use case",
-        notes="Custom model: verify the chat template with `unslothkit data preview` before training.",
+        notes="Custom model: verify the chat template with `finetunekit data preview` before training.",
     )
 
 

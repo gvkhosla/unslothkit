@@ -1,6 +1,6 @@
-# Contributing to UnslothKit
+# Contributing to FineTuneKit
 
-UnslothKit's goal is to help more beginners successfully start fine-tuning with Unsloth. Contributions should make the first successful run easier, safer, or clearer.
+FineTuneKit's goal is to help more beginners successfully start fine-tuning with Unsloth. Contributions should make the first successful run easier, safer, or clearer.
 
 ## Good contributions
 
@@ -23,8 +23,8 @@ UnslothKit's goal is to help more beginners successfully start fine-tuning with 
 
 ```bash
 python3 -m unittest discover -v
-python3 -m unslothkit recommend --task support-bot --vram-gb 8 --no-detect
-python3 -m unslothkit data check examples/chat_sample.jsonl
+python3 -m finetunekit recommend --task support-bot --vram-gb 8 --no-detect
+python3 -m finetunekit data check examples/chat_sample.jsonl
 ```
 
 ## Adding a recipe

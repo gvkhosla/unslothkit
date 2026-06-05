@@ -1,10 +1,10 @@
 # Unsloth community alignment
 
-UnslothKit should be useful to the Unsloth team and community, not a competing abstraction that hides Unsloth.
+FineTuneKit should be useful to the Unsloth team and community, not a competing abstraction that hides Unsloth.
 
 ## Positioning
 
-UnslothKit is a beginner and agent workflow layer for Unsloth:
+FineTuneKit is a beginner and agent workflow layer for Unsloth:
 
 - It helps users pick safe starter settings.
 - It validates data before training.
@@ -22,13 +22,13 @@ It is not a replacement for:
 
 Good:
 
-> “UnslothKit helps beginners and coding agents create reproducible Unsloth fine-tuning projects.”
+> “FineTuneKit helps beginners and coding agents create reproducible Unsloth fine-tuning projects.”
 
 > “A lightweight starter layer for Unsloth.”
 
 Avoid:
 
-> “UnslothKit is Unsloth for beginners.”
+> “FineTuneKit is Unsloth for beginners.”
 
 > “Official Unsloth toolkit.”
 
@@ -52,7 +52,7 @@ Avoid:
    - Before/after eval outputs.
 
 4. **Support agent workflows**
-   - Pi `/unsloth` launcher.
+   - Pi `/finetune` launcher.
    - Agent skill for Pi / Claude Code / Codex.
    - `AGENTS.md` and `docs/AGENT_QUICKSTART.md`.
 
@@ -76,4 +76,4 @@ Avoid:
 
 Use this in docs/posts:
 
-> UnslothKit is an independent community project built on top of Unsloth. For official installation instructions, model support, and advanced features, see https://unsloth.ai/docs and https://github.com/unslothai/unsloth.
+> FineTuneKit is an independent community project built on top of Unsloth. For official installation instructions, model support, and advanced features, see https://unsloth.ai/docs and https://github.com/unslothai/unsloth.

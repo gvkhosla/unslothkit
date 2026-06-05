@@ -24,7 +24,7 @@ labels: [beginner-help]
 Please run and paste:
 
 ```bash
-python3 -m unslothkit doctor
+python3 -m finetunekit doctor
 ```
 
 ## Data check
@@ -32,7 +32,7 @@ python3 -m unslothkit doctor
 If data-related, please run and paste:
 
 ```bash
-python3 -m unslothkit data check path/to/train.jsonl
+python3 -m finetunekit data check path/to/train.jsonl
 ```
 
 ## Anything else?

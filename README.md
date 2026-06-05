@@ -1,14 +1,14 @@
-# UnslothKit
+# FineTuneKit
 
 Beginner-friendly, agent-native scaffolding for fine-tuning open-source models with [Unsloth](https://github.com/unslothai/unsloth).
 
-> Independent community project. All credit for Unsloth itself goes to the [Unsloth team](https://github.com/unslothai/unsloth). UnslothKit is built to complement Unsloth Core, [Unsloth Studio](https://unsloth.ai/docs/new/studio), official docs, and official notebooks — not replace them. For official Unsloth docs, see https://unsloth.ai/docs. See `NOTICE.md` for attribution and license notes.
+> Independent community project. All credit for Unsloth itself goes to the [Unsloth team](https://github.com/unslothai/unsloth). FineTuneKit is built to complement Unsloth Core, [Unsloth Studio](https://unsloth.ai/docs/new/studio), official docs, and official notebooks — not replace them. For official Unsloth docs, see https://unsloth.ai/docs. See `NOTICE.md` for attribution and license notes.
 
 ## Why I built this
 
 I wanted to make it personally easier to fine-tune open-source models and bring them into my own workflows and agents. Unsloth is powerful, but I kept wanting a simpler on-ramp for the repetitive beginner steps: choosing a model, checking data, creating train/eval splits, generating scripts, and giving coding agents a workflow they can reliably follow.
 
-UnslothKit helps people and their coding agents go from “I have a use case / CSV / chat examples” to a reproducible Unsloth project with:
+FineTuneKit helps people and their coding agents go from “I have a use case / CSV / chat examples” to a reproducible Unsloth project with:
 
 - model + hardware recommendations
 - data conversion, linting, and previews
@@ -23,10 +23,10 @@ The CLI itself uses only Python stdlib. The generated training project installs 
 If you just want to see what this does:
 
 ```bash
-git clone https://github.com/gvkhosla/unslothkit.git
-cd unslothkit
-python3 -m unslothkit demo /tmp/unslothkit-demo
-open /tmp/unslothkit-demo/START_HERE.md  # or just read it in your editor
+git clone https://github.com/gvkhosla/finetunekit.git
+cd finetunekit
+python3 -m finetunekit demo /tmp/finetunekit-demo
+open /tmp/finetunekit-demo/START_HERE.md  # or just read it in your editor
 ```
 
 That creates a tiny working project with sample train/eval data, `config.json`, `train.py`, `eval.py`, and `chat.py`.
@@ -36,16 +36,16 @@ That creates a tiny working project with sample train/eval data, `config.json`, 
 If you're coming from the launch post, start here:
 
 ```bash
-git clone https://github.com/gvkhosla/unslothkit.git
-cd unslothkit
-./scripts/install-cli.sh        # optional: installs `unslothkit` command to ~/bin
-python3 -m unslothkit quickstart
+git clone https://github.com/gvkhosla/finetunekit.git
+cd finetunekit
+./scripts/install-cli.sh        # optional: installs `finetunekit` command to ~/bin
+python3 -m finetunekit quickstart
 
 # Or non-interactive:
-python3 -m unslothkit doctor
-python3 -m unslothkit recommend --task support-bot
-python3 -m unslothkit new my-support-bot --task support-bot --model tiny-smoke-test
-python3 -m unslothkit data check my-support-bot/data/train.jsonl
+python3 -m finetunekit doctor
+python3 -m finetunekit recommend --task support-bot
+python3 -m finetunekit new my-support-bot --task support-bot --model tiny-smoke-test
+python3 -m finetunekit data check my-support-bot/data/train.jsonl
 ```
 
 Then, in a GPU/Unsloth environment:
@@ -63,23 +63,25 @@ python chat.py
 The most reliable beginner install is the tiny wrapper script:
 
 ```bash
-git clone https://github.com/gvkhosla/unslothkit.git
-cd unslothkit
+git clone https://github.com/gvkhosla/finetunekit.git
+cd finetunekit
 ./scripts/install-cli.sh
-unslothkit new my-bot
+finetunekit new my-bot
 ```
 
-You can also use `python3 -m unslothkit ...` from the repo without installing anything.
+You can also use `python3 -m finetunekit ...` from the repo without installing anything.
 
 ## Attribution and licenses
 
-UnslothKit is MIT licensed and does not vendor Unsloth code, models, notebooks, or assets. Generated projects import Unsloth in your training environment.
+FineTuneKit is MIT licensed and does not vendor Unsloth code, models, notebooks, or assets. Generated projects import Unsloth in your training environment.
 
 Important: Unsloth, base models, and datasets have their own licenses/terms. Check official Unsloth docs and each model/dataset license before redistribution or commercial use. See `NOTICE.md`.
 
+For generated-script assumptions and Unsloth API touchpoints, see `docs/UNSLOTH_COMPATIBILITY.md`.
+
 ## Why the Unsloth community might want this
 
-Unsloth is already fast and powerful. UnslothKit tries to reduce the beginner support burden around the parts that happen before and around training:
+Unsloth is already fast and powerful. FineTuneKit tries to reduce the beginner support burden around the parts that happen before and around training:
 
 - “Which model fits my GPU?”
 - “Is my dataset formatted correctly?”
@@ -104,16 +106,16 @@ Then restart your agent or run `/reload` in Pi.
 In Pi, use:
 
 ```text
-/unsloth
+/finetune
 ```
 
 The Pi extension adds:
 
 - a TUI launcher
-- `unslothkit_doctor`
-- `unslothkit_recommend`
-- `unslothkit_create_project`
-- `unslothkit_check_data`
+- `finetunekit_doctor`
+- `finetunekit_recommend`
+- `finetunekit_create_project`
+- `finetunekit_check_data`
 
 ### Claude Code / Codex / other agents
 
@@ -122,7 +124,7 @@ The repo includes:
 ```text
 AGENTS.md
 CLAUDE.md
-skills/unsloth-finetune/SKILL.md
+skills/finetune-open-models/SKILL.md
 ```
 
 Agents should follow the same loop:
@@ -141,24 +143,24 @@ Agents should follow the same loop:
 
 ```bash
 # Instant demo project
-python3 -m unslothkit demo /tmp/unslothkit-demo
+python3 -m finetunekit demo /tmp/finetunekit-demo
 
 # Interactive wizard
-python3 -m unslothkit quickstart
-python3 -m unslothkit quickstart --path my-bot --task support-bot --data support.csv
+python3 -m finetunekit quickstart
+python3 -m finetunekit quickstart --path my-bot --task support-bot --data support.csv
 
 # Environment + model selection
-python3 -m unslothkit doctor
-python3 -m unslothkit recommend --task support-bot --vram-gb 8 --no-detect
+python3 -m finetunekit doctor
+python3 -m finetunekit recommend --task support-bot --vram-gb 8 --no-detect
 
 # Project generation
-python3 -m unslothkit new my-bot --task support-bot --model tiny-smoke-test
-python3 -m unslothkit new my-bot --task domain-qa --model beginner-3b
+python3 -m finetunekit new my-bot --task support-bot --model tiny-smoke-test
+python3 -m finetunekit new my-bot --task domain-qa --model beginner-3b
 
 # Data helpers
-python3 -m unslothkit data check my-bot/data/train.jsonl
-python3 -m unslothkit data convert input.csv my-bot/data/train.jsonl
-python3 -m unslothkit data split all.jsonl my-bot/data/train.jsonl my-bot/data/eval.jsonl
+python3 -m finetunekit data check my-bot/data/train.jsonl
+python3 -m finetunekit data convert input.csv my-bot/data/train.jsonl
+python3 -m finetunekit data split all.jsonl my-bot/data/train.jsonl my-bot/data/eval.jsonl
 
 # Generated-project workflow
 cd my-bot
@@ -205,7 +207,7 @@ CSV conversion accepts headers:
 - `question,answer`
 
 ```bash
-python3 -m unslothkit data convert support.csv data/train.jsonl
+python3 -m finetunekit data convert support.csv data/train.jsonl
 ```
 
 ## Training environment
@@ -248,7 +250,7 @@ Especially useful contributions:
 
 MVP scaffold. Good next additions:
 
-- `/unsloth-train`, `/unsloth-eval`, `/unsloth-chat` Pi commands
+- `/finetune-train`, `/finetune-eval`, `/finetune-chat` Pi commands
 - live training/eval Pi widget
 - LLM-as-judge evals
 - task-specific recipes for extractor/classifier/domain-QA/writing-style

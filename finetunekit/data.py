@@ -132,7 +132,7 @@ def check_data(path: Path, max_previews: int = 3, max_chars: int = 12000) -> Dat
         report.issues.append(DataIssue("error", 0, f"file not found: {path}"))
         return report
     if path.suffix.lower() != ".jsonl":
-        report.issues.append(DataIssue("warning", 0, "expected .jsonl; use `unslothkit data convert` for CSV/instruction files"))
+        report.issues.append(DataIssue("warning", 0, "expected .jsonl; use `finetunekit data convert` for CSV/instruction files"))
 
     for line_no, obj in load_jsonl(path):
         if "__parse_error__" in obj:

@@ -1,6 +1,6 @@
 # Agent Quickstart
 
-Use this when operating UnslothKit from Pi, Claude Code, Codex, or another coding agent.
+Use this when operating FineTuneKit from Pi, Claude Code, Codex, or another coding agent.
 
 ## Goal
 
@@ -18,8 +18,8 @@ Ask or infer:
 Then run:
 
 ```bash
-python3 -m unslothkit doctor
-python3 -m unslothkit recommend --task <task>
+python3 -m finetunekit doctor
+python3 -m finetunekit recommend --task <task>
 ```
 
 ## Happy path
@@ -27,14 +27,14 @@ python3 -m unslothkit recommend --task <task>
 For a human-in-the-loop setup, use the wizard:
 
 ```bash
-python3 -m unslothkit quickstart
+python3 -m finetunekit quickstart
 ```
 
 For non-interactive agents:
 
 ```bash
-python3 -m unslothkit new <project-dir> --task <task> --model tiny-smoke-test
-python3 -m unslothkit data check <project-dir>/data/train.jsonl
+python3 -m finetunekit new <project-dir> --task <task> --model tiny-smoke-test
+python3 -m finetunekit data check <project-dir>/data/train.jsonl
 cd <project-dir>
 python eval.py --base
 python train.py
@@ -63,9 +63,9 @@ python chat.py
 
 ## Pi-specific
 
-If the Pi extension is installed, use `/unsloth` or the tools:
+If the Pi extension is installed, use `/finetune` or the tools:
 
-- `unslothkit_doctor`
-- `unslothkit_recommend`
-- `unslothkit_create_project`
-- `unslothkit_check_data`
+- `finetunekit_doctor`
+- `finetunekit_recommend`
+- `finetunekit_create_project`
+- `finetunekit_check_data`

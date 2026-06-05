@@ -1,3 +1,3 @@
-"""UnslothKit: beginner-friendly scaffolding for Unsloth fine-tuning."""
+"""Backward-compatible alias for finetunekit."""
 
-__version__ = "0.1.0"
+from finetunekit import __version__
