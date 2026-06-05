@@ -19,6 +19,7 @@ The CLI itself uses only Python stdlib. The generated training project installs 
 ```bash
 git clone https://github.com/gvkhosla/unslothkit.git
 cd unslothkit
+./scripts/install-cli.sh        # optional: installs `unslothkit` command to ~/bin
 python3 -m unslothkit quickstart
 
 # Or non-interactive:
@@ -40,12 +41,16 @@ python chat.py
 
 ## Install as a CLI
 
+The most reliable beginner install is the tiny wrapper script:
+
 ```bash
 git clone https://github.com/gvkhosla/unslothkit.git
 cd unslothkit
-pip install -e .
+./scripts/install-cli.sh
 unslothkit new my-bot
 ```
+
+You can also use `python3 -m unslothkit ...` from the repo without installing anything.
 
 ## Why the Unsloth community might want this
 

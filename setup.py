@@ -1,0 +1,10 @@
+from setuptools import find_packages, setup
+
+setup(
+    name="unslothkit",
+    version="0.1.0",
+    description="Beginner-friendly CLI for Unsloth fine-tuning projects",
+    packages=find_packages(),
+    python_requires=">=3.9",
+    entry_points={"console_scripts": ["unslothkit=unslothkit.cli:main"]},
+)

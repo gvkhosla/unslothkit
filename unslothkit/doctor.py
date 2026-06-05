@@ -74,8 +74,7 @@ def run_doctor() -> List[Check]:
         if _has_module(mod):
             checks.append(Check(mod, "ok", "importable"))
         else:
-            severity = "error" if mod in {"unsloth", "torch"} else "warn"
-            checks.append(Check(mod, severity, "not installed", "Install with `uv pip install unsloth --torch-backend=auto` inside your training environment."))
+            checks.append(Check(mod, "warn", "not installed in this Python environment", "This is OK for project generation. For actual training, install Unsloth in a GPU environment with `uv pip install unsloth --torch-backend=auto`."))
 
     if os.environ.get("HF_TOKEN") or os.environ.get("HUGGING_FACE_HUB_TOKEN"):
         checks.append(Check("Hugging Face token", "ok", "HF token env var detected"))

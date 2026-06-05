@@ -345,7 +345,7 @@ unslothkit data check data/train.jsonl
 unslothkit data check data/eval.jsonl
 ```
 
-If `unslothkit` is not found, install it once from the repo with `pip install -e .`, or run data checks from the cloned UnslothKit repo with `python3 -m unslothkit ...`.
+If `unslothkit` is not found, install it once from the cloned repo with `./scripts/install-cli.sh`, or run data checks from the cloned UnslothKit repo with `python3 -m unslothkit ...`.
 
 Open `data/train.jsonl` and replace the sample examples with your real examples.
 
@@ -396,7 +396,7 @@ UnslothKit is an independent community starter layer for Unsloth. For official U
 
 ## Quick start
 
-If `unslothkit` is not found, install it once from the cloned repo with `pip install -e .`.
+If `unslothkit` is not found, install it once from the cloned repo with `./scripts/install-cli.sh`, or use `python3 -m unslothkit ...` from the repo.
 
 ```bash
 # 1) Inspect the data first
