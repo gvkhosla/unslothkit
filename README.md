@@ -18,6 +18,16 @@ FineTuneKit helps anyone with a coding agent go from “I have a use case / CSV 
 
 The CLI itself uses only Python stdlib. The generated training project installs Unsloth in the GPU environment.
 
+## Ask your coding agent
+
+If you are using Pi, Claude Code, Codex, Amp, OpenCode, or another harness, paste:
+
+```text
+Use this repo's AGENTS.md / FineTuneKit workflow. I want to fine-tune an open-source model with Unsloth for: <describe task>. Start small, check my environment, recommend a model, create a project, validate data before training, set up held-out evals, and do not start training or spend money without my approval.
+```
+
+More copy/paste prompts: `docs/COPY_PASTE_PROMPTS.md`.
+
 ## Get value immediately
 
 If you just want to see what this does:
@@ -99,7 +109,7 @@ FineTuneKit is designed for anyone working through a coding agent — Pi, Claude
 - **Claude Code / Codex**: shared `finetune-open-models` skill.
 - **Amp / OpenCode / other harnesses**: repo-level `AGENTS.md` and command-first docs.
 
-See `docs/AGENT_NATIVE.md` for details.
+See `docs/AGENT_NATIVE.md` and `docs/COPY_PASTE_PROMPTS.md` for details.
 
 Install shared skills for Pi / Claude Code / Codex and the Pi-native extension:
 
@@ -252,6 +262,16 @@ Especially useful contributions:
 - better evals
 - Colab/RunPod launchers
 - fixes when official Unsloth APIs/templates change
+
+## Project health
+
+The repo includes GitHub Actions CI for Python unit tests and CLI smoke tests. Local check:
+
+```bash
+python3 -m unittest discover -v
+python3 -m finetunekit demo /tmp/finetunekit-demo
+python3 -m finetunekit data check /tmp/finetunekit-demo/data/train.jsonl
+```
 
 ## Status
 
