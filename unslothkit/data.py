@@ -162,6 +162,7 @@ def check_data(path: Path, max_previews: int = 3, max_chars: int = 12000) -> Dat
 def convert_csv_to_jsonl(input_path: Path, output_path: Path) -> int:
     """Convert CSV with common columns to chat JSONL."""
     count = 0
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     with input_path.open("r", encoding="utf-8-sig", newline="") as f_in, output_path.open("w", encoding="utf-8") as f_out:
         reader = csv.DictReader(f_in)
         if not reader.fieldnames:

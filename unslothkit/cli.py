@@ -121,7 +121,11 @@ def cmd_data_split(args: argparse.Namespace) -> int:
 
 def _ask(prompt: str, default: str = "") -> str:
     suffix = f" [{default}]" if default else ""
-    value = input(f"{prompt}{suffix}: ").strip()
+    try:
+        value = input(f"{prompt}{suffix}: ").strip()
+    except EOFError:
+        print("")
+        return default
     return value or default
 
 
@@ -145,13 +149,22 @@ def cmd_quickstart(args: argparse.Namespace) -> int:
         if not src.exists():
             print(f"❌ Data file not found: {src}", file=sys.stderr)
             return 1
+        all_path = project_path / "data" / "all_imported.jsonl"
         train_path = project_path / "data" / "train.jsonl"
+        eval_path = project_path / "data" / "eval.jsonl"
         if src.suffix.lower() == ".csv":
-            n = convert_csv_to_jsonl(src, train_path)
-            print(f"✅ Converted {n} CSV rows into {train_path}")
+            n = convert_csv_to_jsonl(src, all_path)
+            print(f"✅ Converted {n} CSV rows into {all_path}")
         else:
-            shutil.copyfile(src, train_path)
-            print(f"✅ Copied {src} into {train_path}")
+            shutil.copyfile(src, all_path)
+            print(f"✅ Copied {src} into {all_path}")
+        imported_report = check_data(all_path, max_previews=1)
+        if imported_report.ok and imported_report.total_examples >= 2:
+            train_n, eval_n = split_jsonl(all_path, train_path, eval_path, eval_ratio=0.1, seed=3407)
+            print(f"✅ Created held-out split: {train_n} train / {eval_n} eval")
+        else:
+            shutil.copyfile(all_path, train_path)
+            print("⚠️  Could not create train/eval split; using imported data as train and keeping sample eval data")
 
     print("\nChecking training data:\n")
     report = check_data(project_path / "data" / "train.jsonl")

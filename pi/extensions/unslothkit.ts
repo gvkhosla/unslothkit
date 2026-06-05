@@ -1,12 +1,13 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { Type } from "typebox";
 import { execFile } from "node:child_process";
+import { realpathSync } from "node:fs";
 import { promisify } from "node:util";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const execFileAsync = promisify(execFile);
-const __filename = fileURLToPath(import.meta.url);
+const __filename = realpathSync(fileURLToPath(import.meta.url));
 const __dirname = path.dirname(__filename);
 const REPO = process.env.UNSLOTHKIT_REPO || path.resolve(__dirname, "../..");
 
