@@ -2,7 +2,7 @@
 
 Beginner-friendly, agent-native scaffolding for fine-tuning open-source models with [Unsloth](https://github.com/unslothai/unsloth).
 
-> Independent community project. UnslothKit is built to complement Unsloth Core, Unsloth Studio, official docs, and official notebooks — not replace them. For official Unsloth docs, see https://unsloth.ai/docs.
+> Independent community project. All credit for Unsloth itself goes to the [Unsloth team](https://github.com/unslothai/unsloth). UnslothKit is built to complement Unsloth Core, [Unsloth Studio](https://unsloth.ai/docs/new/studio), official docs, and official notebooks — not replace them. For official Unsloth docs, see https://unsloth.ai/docs. See `NOTICE.md` for attribution and license notes.
 
 ## Why I built this
 
@@ -18,7 +18,20 @@ UnslothKit helps people and their coding agents go from “I have a use case / C
 
 The CLI itself uses only Python stdlib. The generated training project installs Unsloth in the GPU environment.
 
-## 60-second start
+## Get value immediately
+
+If you just want to see what this does:
+
+```bash
+git clone https://github.com/gvkhosla/unslothkit.git
+cd unslothkit
+python3 -m unslothkit demo /tmp/unslothkit-demo
+open /tmp/unslothkit-demo/START_HERE.md  # or just read it in your editor
+```
+
+That creates a tiny working project with sample train/eval data, `config.json`, `train.py`, `eval.py`, and `chat.py`.
+
+## 60-second start with your own idea/data
 
 If you're coming from the launch post, start here:
 
@@ -57,6 +70,12 @@ unslothkit new my-bot
 ```
 
 You can also use `python3 -m unslothkit ...` from the repo without installing anything.
+
+## Attribution and licenses
+
+UnslothKit is MIT licensed and does not vendor Unsloth code, models, notebooks, or assets. Generated projects import Unsloth in your training environment.
+
+Important: Unsloth, base models, and datasets have their own licenses/terms. Check official Unsloth docs and each model/dataset license before redistribution or commercial use. See `NOTICE.md`.
 
 ## Why the Unsloth community might want this
 
@@ -121,6 +140,9 @@ Agents should follow the same loop:
 ## Commands
 
 ```bash
+# Instant demo project
+python3 -m unslothkit demo /tmp/unslothkit-demo
+
 # Interactive wizard
 python3 -m unslothkit quickstart
 python3 -m unslothkit quickstart --path my-bot --task support-bot --data support.csv
@@ -212,7 +234,7 @@ Then run generated `train.py` from your project directory.
 
 ## Contributing
 
-PRs and recipe requests are welcome. See `CONTRIBUTING.md`.
+PRs and recipe requests are welcome. See `CONTRIBUTING.md`. If you are from the Unsloth team/community and something here should be corrected, credited differently, or removed, please open an issue or PR.
 
 Especially useful contributions:
 

@@ -1,4 +1,6 @@
 import json
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -48,6 +50,15 @@ class DataTests(unittest.TestCase):
 
 
 class ProjectTests(unittest.TestCase):
+    def test_demo_command(self):
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "demo"
+            result = subprocess.run([sys.executable, "-m", "unslothkit", "demo", str(path)], cwd=Path(__file__).resolve().parents[1], text=True, capture_output=True)
+            self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
+            self.assertTrue((path / "START_HERE.md").exists())
+            self.assertTrue(check_data(path / "data" / "train.jsonl").ok)
+            self.assertTrue(check_data(path / "data" / "eval.jsonl").ok)
+
     def test_create_project(self):
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "bot"

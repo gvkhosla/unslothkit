@@ -129,6 +129,25 @@ def _ask(prompt: str, default: str = "") -> str:
     return value or default
 
 
+def cmd_demo(args: argparse.Namespace) -> int:
+    project_path = Path(args.path).expanduser()
+    sample = Path(__file__).resolve().parents[1] / "examples" / "chat_sample.jsonl"
+    print(f"🦥 Creating UnslothKit demo at {project_path}")
+    create_project(project_path, task="support-bot", model_label="tiny-smoke-test", force=args.force)
+    all_path = project_path / "data" / "all_imported.jsonl"
+    shutil.copyfile(sample, all_path)
+    split_jsonl(all_path, project_path / "data" / "train.jsonl", project_path / "data" / "eval.jsonl", eval_ratio=0.5, seed=3407)
+    report = check_data(project_path / "data" / "train.jsonl")
+    print_data_report(report)
+    print("\nOpen this first:")
+    print(f"  {project_path / 'START_HERE.md'}")
+    print("\nNext:")
+    print(f"  cd {project_path}")
+    print("  python eval.py --base   # in GPU/Unsloth env")
+    print("  python train.py")
+    return 0 if report.ok else 1
+
+
 def cmd_quickstart(args: argparse.Namespace) -> int:
     print("🦥 UnslothKit quickstart\n")
     project = _ask("Project directory", args.path or "my-unsloth-bot")
@@ -230,6 +249,11 @@ def build_parser() -> argparse.ArgumentParser:
     rec.add_argument("--vram-gb", type=float, default=None)
     rec.add_argument("--no-detect", action="store_true")
     rec.set_defaults(func=cmd_recommend)
+
+    demo = sub.add_parser("demo", help="create a tiny sample project so you can see the generated workflow immediately")
+    demo.add_argument("path", nargs="?", default="unslothkit-demo")
+    demo.add_argument("--force", action="store_true")
+    demo.set_defaults(func=cmd_demo)
 
     quick = sub.add_parser("quickstart", help="interactive beginner wizard: recommend model, create project, import/check data")
     quick.add_argument("--path", default=None)
