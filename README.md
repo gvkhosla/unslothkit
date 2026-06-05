@@ -119,11 +119,9 @@ In Pi, use:
 
 The Pi extension adds:
 
-- a TUI launcher
-- `finetunekit_doctor`
-- `finetunekit_recommend`
-- `finetunekit_create_project`
-- `finetunekit_check_data`
+- a `/finetune` TUI launcher
+- native tools for doctor, recommendations, project creation, data checks, CSV conversion, train/eval splitting, approved background training, and eval runs
+- a live status/widget for background training logs
 
 ### Claude Code / Codex / Amp / OpenCode / other agents
 
@@ -259,8 +257,8 @@ Especially useful contributions:
 
 MVP scaffold. Good next additions:
 
-- `/finetune-train`, `/finetune-eval`, `/finetune-chat` Pi commands
-- live training/eval Pi widget
+- richer eval comparison summaries
+- `/finetune-chat` Pi command
 - LLM-as-judge evals
 - task-specific recipes for extractor/classifier/domain-QA/writing-style
 - Colab/RunPod launchers

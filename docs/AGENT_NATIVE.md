@@ -20,12 +20,18 @@ Then restart Pi or run `/reload` and use:
 /finetune
 ```
 
-The Pi extension registers:
+The Pi extension registers a simple `/finetune` launcher plus agent-callable tools:
 
 - `finetunekit_doctor`
 - `finetunekit_recommend`
 - `finetunekit_create_project`
 - `finetunekit_check_data`
+- `finetunekit_convert_data`
+- `finetunekit_split_data`
+- `finetunekit_start_training`
+- `finetunekit_run_eval`
+
+Training launched from Pi runs in the background, writes a log under `.finetunekit/runs/`, and updates a Pi status/widget so the user can see what is happening without digging through terminals.
 
 ### Claude Code and Codex
 
@@ -77,6 +83,7 @@ Rules:
 - Never train until `data check` passes and previews look right.
 - Keep eval data held out.
 - Ask before launching paid cloud GPU jobs, pushing to Hugging Face, or overwriting user data.
+- In Pi, prefer the native tools over raw shell for project creation, data conversion/splitting, training starts, and evals.
 
 ## Why this matters
 
